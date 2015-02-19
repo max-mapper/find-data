@@ -7,8 +7,11 @@
   "description": "spiders a domain for data files",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "standard": "standard"
   },
   "author": "max ogden",
-  "license": "BSD"
+  "license": "BSD",
+  "devDependencies": {
+    "standard": "^2.6.4"
+  }
 }

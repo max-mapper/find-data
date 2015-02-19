@@ -5,29 +5,29 @@ var cheerio = require('cheerio')
 var through = require('through2')
 var path = require('path')
 
-module.exports = function(opts) {
+module.exports = function (opts) {
   var stream = through.obj()
   if (!opts.url) stream.destroy(new Error('must specify url'))
-  var queue = async.queue(function(item, done) {
-    getFiles(item, function(err, files) {
-      files.forEach(function(file) {
+  var queue = async.queue(function (item, done) {
+    getFiles(item, function (err, files) {
+      files.forEach(function (file) {
         stream.push(file)
       })
       done()
     })
   }, 10)
   if (opts.url) queue.push(opts.url)
-  queue.drain = function() {
+  queue.drain = function () {
     stream.end()
   }
   return stream
-  
-  function getFiles(page, cb) {
-    request(page, function(err, resp, buff) {
+
+  function getFiles (page, cb) {
+    request(page, function (err, resp, buff) {
       if (err) return cb(err)
       var $ = cheerio.load(buff)
       var files = []
-      $('a').map(function(i, a) {
+      $('a').map(function (i, a) {
         var href = $(a).attr('href')
         if (!href) return
         if (opts.filter) {
