@@ -1,0 +1,14 @@
+{
+  "name": "find-data",
+  "version": "1.0.0",
+  "bin": {
+    "find-data": "cli.js"
+  },
+  "description": "spiders a domain for data files",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "max ogden",
+  "license": "BSD"
+}
