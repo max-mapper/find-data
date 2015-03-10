@@ -13,7 +13,7 @@
   "license": "BSD",
   "dependencies": {
     "atom-shell": "^0.21.2",
-    "atomic-queue": "^2.0.0",
+    "atomic-queue": "^3.0.0",
     "hat": "0.0.3",
     "request": "^2.53.0",
     "robots-txt-parse": "0.0.2"
