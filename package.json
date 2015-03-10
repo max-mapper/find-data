@@ -1,17 +1,27 @@
 {
-  "name": "find-data",
+  "name": "atom-spider",
   "version": "1.0.0",
-  "bin": {
-    "find-data": "cli.js"
-  },
-  "description": "spiders a domain for data files",
+  "description": "web spider using atom-shell",
   "main": "index.js",
+  "bin": {
+    "atom-spider": "cli.js"
+  },
   "scripts": {
-    "standard": "standard"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "max ogden",
   "license": "BSD",
+  "dependencies": {
+    "atom-shell": "^0.21.2",
+    "atomic-queue": "^2.0.0",
+    "hat": "0.0.3",
+    "request": "^2.53.0",
+    "robots-txt-parse": "0.0.2"
+  },
   "devDependencies": {
-    "standard": "^2.6.4"
+    "concat-stream": "^1.4.7",
+    "ndjson": "^1.3.0",
+    "npm-execspawn": "^1.0.6",
+    "tape": "^3.5.0"
   }
 }

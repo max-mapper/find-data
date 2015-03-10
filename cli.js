@@ -1,8 +1,6 @@
-#!/usr/bin/env node
+#!/usr/bin/env atom-shell
+var spider = require('./index.js')
 
-var ndjson = require('ndjson')
-var findData = require('./')
+var site = process.argv[2] || process.exit(1)
 
-findData({url: process.argv[2]})
-  .pipe(ndjson.serialize())
-  .pipe(process.stdout)
+spider({url: site})
