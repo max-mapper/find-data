@@ -1,10 +1,10 @@
 {
-  "name": "atom-spider",
+  "name": "find-data",
   "version": "1.0.0",
   "description": "web spider using atom-shell",
   "main": "index.js",
   "bin": {
-    "atom-spider": "cli.js"
+    "find-data": "cli.js"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

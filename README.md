@@ -1,5 +1,13 @@
 # work in progress
 
+to test:
+
+```
+cd find-data
+npm link
+find-data http://irsa.ipac.caltech.edu/ibe/data/wise/merge/merge_p1bm_frm/
+```
+
 ### TODO
 
 - maxDepth
