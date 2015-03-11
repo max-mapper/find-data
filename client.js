@@ -2,10 +2,7 @@ var ipc = ATOM_SHELL_REQUIRE('ipc')
 var url = ATOM_SHELL_REQUIRE('url')
 var id
 
-console.log('here!')
-
 ipc.on('win-id', function gotId (myId) {
-  console.log('GOT ID', myId)
   id = myId
 })
 

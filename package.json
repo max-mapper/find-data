@@ -14,6 +14,7 @@
   "dependencies": {
     "atom-shell": "^0.21.2",
     "atomic-queue": "^3.0.0",
+    "debug": "^2.1.2",
     "hat": "0.0.3",
     "request": "^2.53.0",
     "robots-txt-parse": "0.0.2"

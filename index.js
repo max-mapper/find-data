@@ -7,11 +7,16 @@ var BrowserWindow = require('browser-window')
 
 var createQueue = require('atomic-queue')
 var uuid = require('hat')
+var debug = require('debug')('find-data')
 
 module.exports = function (opts) {
   if (!opts) opts = {}
   var clientJS = fs.readFileSync(__dirname + '/client.js').toString()
     
+  app.on('will-quit', function(e) {
+    e.preventDefault()
+  })
+  
   app.on('ready', function appReady () {
     var visited = {}
     var workers = createWorkers()
@@ -23,7 +28,7 @@ module.exports = function (opts) {
     })
     
     queue.on('error', function queueError (err) {
-      console.log('queue error!', err)
+      console.error('queue error!', err)
     })
     
     ipc.on('site-ready', function (event, dims) {
@@ -43,6 +48,7 @@ module.exports = function (opts) {
       var limit = opts.workers || 1
       for (var i = 0; i < limit; i++) {
         workers.push(function worker (uri, done) {
+          debug('create window', uri)
           var win = createWindow()
           win.loadUrl(uri)
           visited[uri] = true
@@ -50,18 +56,15 @@ module.exports = function (opts) {
           win.webContents.on('did-finish-load', function (e, url) {
             win.webContents.executeJavaScript(clientJS)
             win.webContents.send('win-id', id)
-            ipc.once(id + '-done', function done () {
-               win.close()
+            ipc.once(id + '-done', function onDone () {
+              debug('close window', uri)
+              win.close()
+              setTimeout(done, 1000)
             })
           })
   
           win.webContents.on('will-navigate', function (e, url) {
             console.error('will-navigate ' + url)
-          })
-          
-          win.on('closed', function() {
-            win = null
-            done()
           })
         })
       }
