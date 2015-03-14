@@ -10,6 +10,7 @@ var debug = require('debug')('find-data')
 
 module.exports = function (opts) {
   if (!opts) opts = {}
+  var windows = []
   var clientJS = fs.readFileSync(__dirname + '/client.js').toString()
   
   app.on('ready', function appReady () {
@@ -45,6 +46,7 @@ module.exports = function (opts) {
         workers.push(function worker (uri, done) {
           debug('create window', uri)
           var win = createWindow()
+          windows.push(win)
           win.loadUrl(uri)
           visited[uri] = true
           win.webContents.on('did-finish-load', function (e, url) {
