@@ -6,16 +6,11 @@ var ipc = require('ipc')
 var BrowserWindow = require('browser-window')
 
 var createQueue = require('atomic-queue')
-var uuid = require('hat')
 var debug = require('debug')('find-data')
 
 module.exports = function (opts) {
   if (!opts) opts = {}
   var clientJS = fs.readFileSync(__dirname + '/client.js').toString()
-    
-  app.on('will-quit', function(e) {
-    e.preventDefault()
-  })
   
   app.on('ready', function appReady () {
     var visited = {}
@@ -31,9 +26,7 @@ module.exports = function (opts) {
       console.error('queue error!', err)
     })
     
-    ipc.on('site-ready', function (event, dims) {
-      console.error('got site ready!')
-    })
+    queue.on('idle', function idle () { }) 
     
     ipc.on('links', function (event, links) {
       links.forEach(function each (link) {
@@ -41,6 +34,8 @@ module.exports = function (opts) {
         console.log(JSON.stringify({url: link}))
         queue.write(link)
       })
+      var win = BrowserWindow.fromWebContents(event.sender)
+      win.close()
     })
     
     function createWorkers() {
@@ -52,19 +47,11 @@ module.exports = function (opts) {
           var win = createWindow()
           win.loadUrl(uri)
           visited[uri] = true
-          var id = uuid() // hack for https://github.com/atom/atom-shell/issues/1231
           win.webContents.on('did-finish-load', function (e, url) {
             win.webContents.executeJavaScript(clientJS)
-            win.webContents.send('win-id', id)
-            ipc.once(id + '-done', function onDone () {
-              debug('close window', uri)
-              win.close()
-              setTimeout(done, 1000)
-            })
           })
-  
-          win.webContents.on('will-navigate', function (e, url) {
-            console.error('will-navigate ' + url)
+          win.on('close', function closed () {
+            done()
           })
         })
       }

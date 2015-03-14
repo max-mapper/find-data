@@ -1,10 +1,5 @@
 var ipc = ATOM_SHELL_REQUIRE('ipc')
 var url = ATOM_SHELL_REQUIRE('url')
-var id
-
-ipc.on('win-id', function gotId (myId) {
-  id = myId
-})
 
 if (document.readyState === 'complete') parse()
 else document.addEventListener("DOMContentLoaded", parse)
@@ -19,13 +14,6 @@ function parse() {
     uris[normalizeLink(pageUrl, href)] = true
   })
   ipc.send('links', Object.keys(uris))
-
-  if (id) finish(id)
-  else ipc.once('win-id', finish)
-}
-
-function finish (myId) {
-  ipc.send(myId + '-done')
 }
 
 // from https://github.com/jprichardson/node-linkscrape/blob/master/lib/linkscrape.js
