@@ -1,6 +1,10 @@
 #!/usr/bin/env atom-shell
 var spider = require('./index.js')
+var args = require('minimist')(process.argv.slice(2))
 
-var site = process.argv[2] || process.exit(1)
-
-spider({url: site})
+if (!args._[0]) {
+  console.error('Usage: find-data <url> [--workers=N]')
+} else {
+  args.url = args._[0]
+  spider(args)
+}
