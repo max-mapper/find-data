@@ -1,3 +1,5 @@
+// ATOM_SHELL_REQUIRE is node's require, but changed in preload.js
+// to hopefully not conflict with page globals on the 'net
 var ipc = ATOM_SHELL_REQUIRE('ipc')
 var url = ATOM_SHELL_REQUIRE('url')
 
