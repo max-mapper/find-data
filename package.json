@@ -7,7 +7,7 @@
     "find-data": "cli.js"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "demo": "atom-shell cli.js http://irsa.ipac.caltech.edu/ibe/data/wise/merge/merge_p1bm_frm/"
   },
   "author": "max ogden",
   "license": "BSD",
